@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pemesanan Makanan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Daftar Makanan</h2>
+
+  <!-- makanan -->
+  <div class="menu-container">
+    <div class="menu-card">
+      <h4>Gacoan</h4>
+      <p>Mie pedas nikmat bandung</p>
+      <span class="price">Rp 25.000</span>
+    </div>
+    <div class="menu-card">
+      <h4>Kebab</h4>
+      <p>Daging yang gurih dan murah</p>
+      <span class="price">Rp 20.000</span>
+    </div>
+    <div class="menu-card">
+      <h4>Nasi Padang</h4>
+      <p>Rendang, sambal ijo, dan ayam bakar</p>
+      <span class="price">Rp 15.000</span>
+    </div>
+    <div class="menu-card">
+      <h4>Molen</h4>
+      <p>Pisang goreng renyah isi keju</p>
+      <span class="price">Rp 10.000</span>
+    </div>
+  </div>
+
+  <!-- minuman -->
+  <h2>Daftar Minuman</h2>
+  <div class="menu-container">
+    <div class="menu-card drink">
+      <h4>Es Teh</h4>
+      <p>Segar dan manis</p>
+      <span class="price">Rp 5.000</span>
+    </div>
+    <div class="menu-card drink">
+      <h4>Matcha</h4>
+      <p>Matcha latte khas Jepang</p>
+      <span class="price">Rp 10.000</span>
+    </div>
+    <div class="menu-card drink">
+      <h4>Jus Jeruk</h4>
+      <p>Vitamin C segar</p>
+      <span class="price">Rp 8.000</span>
+    </div>
+    <div class="menu-card drink">
+      <h4>Es Sodor</h4>
+      <p>Minuman manis legit</p>
+      <span class="price">Rp 11.000</span>
+    </div>
+  </div>
+
+  <!-- pemesanan -->
+  <h2>Form Pemesanan</h2>
+  <form method="post" action="proses.php" onsubmit="return validateForm()">
+    <label>Nama Pelanggan:</label>
+    <input type="text" name="nama" id="nama" required>
+
+    <label>Pilih Makanan:</label>
+    <select name="menu" required>
+      <option value="">-- Pilih Makanan --</option>
+      <option value="Gacoan">Gacoan - Rp 25.000</option>
+      <option value="Kebab">Kebab - Rp 20.000</option>
+      <option value="Nasi Padang">Nasi Padang - Rp 15.000</option>
+      <option value="Molen">Molen - Rp 10.000</option>
+    </select>
+
+    <label>Jumlah Makanan </label>
+    <input type="number" name="jumlah_makanan" id="jumlah_makanan" required>
+
+    <label>Pilih Minuman:</label>
+    <select name="minuman" required>
+      <option value="-">- Tidak Memesan -</option>
+      <option value="Es Teh">Es Teh - Rp 5.000</option>
+      <option value="Matcha">Matcha - Rp 10.000</option>
+      <option value="Jus Jeruk">Jus Jeruk - Rp 8.000</option>
+      <option value="Es Sodor">Es Sodor - Rp 11.000</option>
+    </select>
+
+    <label>Jumlah Minuman </label>
+    <input type="number" name="jumlah_minuman" id="jumlah_minuman" value="0" required>
+
+    <input type="submit" name="hitung" value="Hitung Total">
+    <input type="reset" value="Hapus Form">
+  </form>
+
+  <script>
+    function validateForm() {
+      const nama = document.getElementById('nama').value.trim();
+      const jumlahMakanan = parseInt(document.getElementById('jumlah_makanan').value);
+      const jumlahMinuman = parseInt(document.getElementById('jumlah_minuman').value);
+
+      // Validasi nama hanya huruf
+      const nameRegex = /^[A-Za-z\s]+$/;
+      if (!nameRegex.test(nama)) {
+        alert("Nama hanya boleh huruf A-Z tanpa angka atau simbol!");
+        return false;
+      }
+
+      // Cek input kosong
+      if (nama === "" || isNaN(jumlahMakanan) || isNaN(jumlahMinuman)) {
+        alert("Input tidak lengkap! Mohon isi semua field.");
+        return false;
+      }
+
+      // Validasi makanan minimal 1 dan maksimal 15
+      if (jumlahMakanan < 1 || jumlahMakanan > 15) {
+        alert("Jumlah makanan harus antara 1 hingga 15!");
+        return false;
+      }
+
+      // Validasi minuman 0–15 (boleh tidak pesan)
+      if (jumlahMinuman < 0 || jumlahMinuman > 15) {
+        alert("Jumlah minuman harus antara 0 hingga 15!");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>
